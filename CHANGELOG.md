@@ -79,3 +79,6 @@ Release 0.11.0 failed due to CI issues.
 * [FEATURE] Export extended slab metrics. Thanks @ipstatic
 * [FEATURE] Add -version flag and use common version format
 * [FEATURE] Add memcached_max_connections metric
+
+
+
