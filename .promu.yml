@@ -5,6 +5,7 @@ go:
 repository:
     path: github.com/prometheus/memcached_exporter
 build:
+    static: false
     binaries:
         - name: memcached_exporter
           path: ./cmd/memcached_exporter

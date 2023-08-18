@@ -1,0 +1,18 @@
+FROM registry.ci.openshift.org/stolostron/builder:go1.18-linux AS builder
+WORKDIR /workspace
+
+COPY . .
+
+RUN make common-build
+
+FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
+
+LABEL maintainer="Red Hat Advanced Cluster Management"
+
+COPY  --from=builder /workspace/memcached_explorer /bin/memcached_exporter
+
+RUN microdnf update -y && microdnf clean all
+
+USER       nobody
+ENTRYPOINT ["/bin/memcached_exporter"]
+EXPOSE     9150
