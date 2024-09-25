@@ -1,0 +1,10 @@
+# Copyright (c) 2024 Red Hat, Inc.
+# Copyright Contributors to the Open Cluster Management project
+
+include Makefile.common
+
+# Override common-build target to build dynamically linked binary
+.PHONY: common-build
+common-build: promu
+	@echo ">> building dynamic binaries"
+	$(PROMU) -c ".promu.dynamic.yaml" build -v --cgo --prefix $(PREFIX) $(PROMU_BINARIES)
