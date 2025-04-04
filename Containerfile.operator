@@ -1,7 +1,7 @@
 # Copyright Contributors to the Open Cluster Management project
 # Licensed under the Apache License 2.0
 
-FROM registry.ci.openshift.org/stolostron/builder:go1.21-linux as builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.23 as builder
 
 WORKDIR /workspace
 COPY . .
@@ -10,7 +10,7 @@ RUN make -f Makefile.dynamic common-build
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
 
-COPY memcached_exporter /bin/memcached_exporter
+COPY --from=builder /workspace/memcached_exporter /bin/memcached_exporter
 
 USER       nobody
 ENTRYPOINT ["/bin/memcached_exporter"]
