@@ -9,6 +9,7 @@ build:
     binaries:
         - name: memcached_exporter
           path: ./cmd/memcached_exporter
+    flags: -mod=mod
     ldflags: |
         -X github.com/prometheus/common/version.Version={{.Version}}
         -X github.com/prometheus/common/version.Revision={{.Revision}}
