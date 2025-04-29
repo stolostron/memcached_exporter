@@ -1,3 +1,20 @@
+## 0.15.2 / 2025-03-21
+
+* [CHANGE] Update dependencies
+
+This addresses CVE-2025-22870
+
+## 0.15.1 / 2025-02-24
+
+* [CHANGE] Update dependencies
+
+This addresses CVE-2024-45337 and CVE-2024-45338
+
+## 0.15.0 / 2024-11-08
+
+* [CHANGE] Update dependencies
+* [ENHANCEMENT] Add metric for `direct_reclaims` #227
+
 ## 0.14.4 / 2024-06-24
 
 * [CHANGE] Update dependencies
