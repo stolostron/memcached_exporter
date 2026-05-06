@@ -1,0 +1,42 @@
+# Copyright Contributors to the Open Cluster Management project
+# Licensed under the Apache License 2.0
+
+FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.25.8 as builder
+
+WORKDIR /workspace
+COPY . .
+
+# build promu
+RUN cd promu && go build -mod=mod -o /cachi2/output/deps/gomod/bin/promu
+
+RUN CGO_ENABLED=1 GOEXPERIMENT=strictfipsruntime make -f Makefile.dynamic common-build
+
+FROM registry-proxy.engineering.redhat.com/ubi9/ubi-minimal:latest
+
+COPY --from=builder /workspace/memcached_exporter /bin/memcached_exporter
+
+LABEL com.redhat.component="memcached-exporter" \
+    name="rhacm2/memcached-exporter-rhel9" \
+    cpe="cpe:/a:redhat:acm:2.16::el9" \
+    summary="stolostron/memcached_exporter" \
+    description="Memcached Exporter for Prometheus" \
+    io.openshift.tags="observability" \
+    io.k8s.display-name="stolostron/memcached_exportor" \
+    io.k8s.description="Memcached Exporter for Prometheus" \
+    maintainer="Observatorium <team-monitoring@redhat.com>" \
+    version="$VERSION" \
+    org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.description="Observatorium API" \
+    org.label-schema.docker.cmd="docker run --rm stolostron/memcached_exporter" \
+    org.label-schema.docker.dockerfile=$DOCKERFILE_PATH \
+    org.label-schema.name="stolostron/memcached_exporter" \
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.vcs-branch=$VCS_BRANCH \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-url="https://github.com/stolostron/memcached_exporter" \
+    org.label-schema.vendor="Red Hat, Inc" \
+    org.label-schema.version=$VERSION
+
+USER       nobody
+ENTRYPOINT ["/bin/memcached_exporter"]
+EXPOSE     9150
