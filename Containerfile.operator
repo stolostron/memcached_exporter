@@ -11,7 +11,7 @@ RUN cd promu && go build -mod=mod -o /cachi2/output/deps/gomod/bin/promu
 
 RUN make -f Makefile.dynamic common-build
 
-FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
+FROM registry.access.redhat.com/hi/core-runtime:latest-openssl-fips
 
 COPY --from=builder /workspace/memcached_exporter /bin/memcached_exporter
 
