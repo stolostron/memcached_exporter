@@ -140,7 +140,7 @@ func New(server string, timeout time.Duration, logger *slog.Logger, tlsConfig *t
 		logger:    logger,
 		tlsConfig: tlsConfig,
 		up: prometheus.NewDesc(
-			prometheus.BuildFQName(Namespace, "", "up"),
+			prometheus.BuildFQName(Namespace, "", "up_broken"),
 			"Could the memcached server be reached.",
 			nil,
 			nil,
