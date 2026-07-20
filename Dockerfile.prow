@@ -9,6 +9,7 @@ COPY . .
 RUN make -f Makefile.dynamic common-build
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
+LABEL io.prometheus.image.variant="prow"
 
 COPY --from=builder /workspace/memcached_exporter /bin/memcached_exporter
 
