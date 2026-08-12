@@ -17,7 +17,7 @@ COPY --from=builder /workspace/memcached_exporter /bin/memcached_exporter
 
 LABEL com.redhat.component="memcached-exporter" \
     name="rhacm2/memcached-exporter-rhel9" \
-    cpe="cpe:/a:redhat:acm:5.0::el9" \
+    cpe="cpe:/a:redhat:acm:5.1::el9" \
     summary="stolostron/memcached_exporter" \
     description="Memcached Exporter for Prometheus" \
     io.openshift.tags="observability" \
